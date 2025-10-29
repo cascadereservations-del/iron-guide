@@ -1,0 +1,402 @@
+<!-- File: simplus-guide-enhanced.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simplus Electric Steam Station — GTJH013 User Manual</title>
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --primary:#1F2937; --secondary:#A08855; --secondary-600:#806C3E;
+      --background:#F4F4F4; --card-bg:#FFFFFF; --dark-card-bg:#2D3748;
+      --danger:#DC2626; --focus:#2563EB;
+    }
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans',sans-serif;background:var(--background);color:var(--primary);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+    .text-primary{color:var(--primary)!important}.bg-primary{background-color:var(--primary)!important}
+    .text-secondary{color:var(--secondary)!important}.bg-secondary{background-color:var(--secondary)!important}
+    .border-secondary{border-color:var(--secondary)!important}.ring-secondary{--tw-ring-color:var(--secondary)!important}
+    .bg-dark-card-bg{background-color:var(--dark-card-bg)!important}
+
+    .card{background:var(--card-bg);box-shadow:0 4px 12px rgba(0,0,0,.05);transition:transform .3s ease,box-shadow .3s ease,border-color .2s ease;border:1px solid rgba(0,0,0,.06)}
+    .card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.12)}
+    .hero-header{background:var(--primary);color:#fff}.hero-title{font-family:'Playfair Display',serif;font-weight:900;line-height:1.1}
+    .section-title{font-family:'Playfair Display',serif;font-size:2.25rem;font-weight:700;color:var(--primary);margin-bottom:1.25rem;padding-bottom:.5rem;border-bottom:3px solid var(--secondary);line-height:1.2;scroll-margin-top:6rem}
+    .key-term{font-weight:700;color:var(--secondary);padding:2px 6px;border-radius:4px;background:rgba(160,136,85,.1);border:1px solid rgba(160,136,85,.28)}
+    .action-step{font-weight:900;color:#6E5937;text-shadow:0 0 1px rgba(0,0,0,.05)}
+
+    .control-dial{width:120px;height:120px;border-radius:50%;border:6px solid #EAEAEA;background:radial-gradient(circle at 70% 30%,#fff,var(--card-bg));position:relative;transform:rotate(-135deg);box-shadow:inset 0 4px 10px rgba(0,0,0,.15)}
+    .control-dial::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:8px;height:25px;background:var(--secondary);border-radius:4px;box-shadow:0 0 0 3px #fff,0 6px 12px rgba(160,136,85,.6)}
+    .dial-markings{position:absolute;inset:0;transform:rotate(135deg)}
+    .dial-markings span{position:absolute;font-size:.8rem;font-weight:700;color:var(--primary);text-shadow:0 1px 1px rgba(255,255,255,.7)}
+    .dial-markings .mark-min{transform:translate(45px,-45px) rotate(-135deg)}
+    .dial-markings .mark-1{transform:translate(10px,-58px) rotate(-90deg)}
+    .dial-markings .mark-2{transform:translate(-45px,-45px) rotate(-45deg)}
+    .dial-markings .mark-max{transform:translate(-58px,10px) rotate(0)}
+
+    .control-slider{width:100%;max-width:360px;height:52px;border-radius:9999px;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:#ECECEC;border:1px solid var(--secondary);box-shadow:inset 0 1px 4px rgba(0,0,0,.1)}
+    .slider-positions span{z-index:10;position:relative;cursor:pointer;padding:4px 8px;border-radius:6px;font-size:.9rem;font-weight:700;color:var(--primary);transition:transform .15s ease,color .15s ease;outline-offset:4px}
+    .slider-positions span:hover,.slider-positions span:focus{color:var(--secondary);transform:translateY(-1px)}
+    .slider-thumb{position:absolute;left:72%;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--secondary),var(--secondary-600));border:3px solid #fff;box-shadow:0 4px 16px rgba(160,136,85,.6);transition:left .25s cubic-bezier(.68,-.55,.265,1.55);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;font-weight:900}
+
+    .step-badge{width:48px;height:48px;min-width:48px;border-radius:9999px;background:linear-gradient(145deg,var(--secondary),var(--secondary-600));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.15rem;letter-spacing:.02em;border:2px solid #fff;box-shadow:0 0 0 2px rgba(0,0,0,.15),0 6px 18px rgba(0,0,0,.15);text-shadow:0 1px 2px rgba(0,0,0,.6)}
+
+    /* Water warning visuals (glow) */
+    .warning-callout{position:relative;overflow:hidden;border:2px solid var(--secondary);background:linear-gradient(180deg,var(--dark-card-bg),#1f2430);color:#fff}
+    .warning-callout::after{content:"";position:absolute;inset:-2px;border-radius:16px;box-shadow:0 0 0 2px rgba(160,136,85,.8),0 0 34px rgba(160,136,85,.5) inset;pointer-events:none;opacity:.85;animation:glow 1.8s ease-in-out 3}
+    @keyframes glow{0%,100%{box-shadow:0 0 0 2px rgba(160,136,85,.6),0 0 10px rgba(160,136,85,.25) inset}50%{box-shadow:0 0 0 4px rgba(160,136,85,.95),0 0 38px rgba(160,136,85,.55) inset}}
+
+    .tooltip{position:relative;display:inline-block}
+    .tooltip .tip{position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);background:#111827;color:#fff;padding:.45rem .6rem;border-radius:.5rem;white-space:nowrap;font-size:.8rem;opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+    .tooltip:focus .tip,.tooltip:hover .tip{opacity:1;transform:translateX(-50%) translateY(-2px)}
+    .tip:after{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);border-width:6px;border-style:solid;border-color:transparent transparent #111827 transparent}
+
+    details summary{list-style:none;cursor:pointer}
+    details summary::-webkit-details-marker{display:none}
+    .caret{transition:transform .2s ease}
+    details[open] .caret{transform:rotate(90deg)}
+
+    .fab-top{position:fixed;right:1rem;bottom:1rem;z-index:50;width:44px;height:44px;border-radius:9999px;background:var(--primary);color:#fff;display:grid;place-items:center;border:2px solid #fff;box-shadow:0 8px 22px rgba(0,0,0,.25);transition:transform .2s ease}
+    .fab-top:hover{transform:translateY(-2px)}
+    :focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:.5rem}
+    @media (prefers-reduced-motion:reduce){
+      *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:0ms!important;scroll-behavior:auto!important}
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:bg-white focus:text-primary focus:px-3 focus:py-2 focus:rounded-lg focus:shadow">Skip to content</a>
+
+  <div class="max-w-5xl mx-auto rounded-xl shadow-2xl overflow-hidden card ring-1 ring-gray-200">
+    <header id="top" class="hero-header p-8 md:p-12 border-b-4 border-secondary/50 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+      <div class="md:col-span-2">
+        <h1 class="hero-title text-4xl md:text-5xl tracking-tight leading-snug">Simplus Electric Steam Station</h1>
+        <p class="text-xl md:text-2xl mt-2 font-light text-secondary">Model: <span class="font-medium text-white">GTJH013</span> — <span class="text-white/90">Exclusive User Guide</span></p>
+        <nav class="mt-6 flex flex-wrap gap-4 text-sm md:text-base font-medium" aria-label="Primary">
+          <a href="#overview" class="underline underline-offset-4 decoration-white/50 hover:text-secondary transition">Features</a>
+          <a href="#setup" class="underline underline-offset-4 decoration-white/50 hover:text-secondary transition">Setup</a>
+          <a href="#modes" class="underline underline-offset-4 decoration-white/50 hover:text-secondary transition">Modes</a>
+          <a href="#safety" class="underline underline-offset-4 decoration-white/50 hover:text-secondary transition">Safety</a>
+        </nav>
+      </div>
+      <div class="md:col-span-1 flex justify-center md:justify-end">
+        <!-- The image is embedded here using the correct Google Drive direct link -->
+        <img src="https://drive.google.com/uc?export=view&id=1vakrLFUl4YRxRw0pkcBUTY9bN0Ynn_gK" alt="Simplus Electric Steam Station Model GTJH013" class="w-full max-w-[200px] md:max-w-full h-auto rounded-lg shadow-xl ring-2 ring-white/50 object-cover">
+      </div>
+    </header>
+
+    <main id="main" class="p-6 md:p-10 grid grid-cols-1 gap-12">
+
+      <!-- NOTE: Top 'Water Warning' section REMOVED as requested -->
+
+      <!-- 1. Essential Components -->
+      <section id="overview">
+        <h2 class="section-title flex items-center">
+          <svg class="w-8 h-8 mr-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0015.586 3H7a2 2 0 00-2 2v11m3 0a2 2 0 002 2h7m-5-8h5"></path></svg>
+          1. Essential Components
+        </h2>
+        <div class="card p-6 rounded-xl">
+          <ul class="list-disc list-inside space-y-3 text-gray-700 md:grid md:grid-cols-2 md:gap-x-8">
+            <li><span class="key-term">Water Tank</span>: The reservoir for water.</li>
+            <li><span class="key-term">Water Filling Opening</span>: Port used to add water.</li>
+            <li><span class="key-term">Steam Button</span>: Controls Steam Boost and Continuous Steam functions.</li>
+            <li><span class="key-term">Thermostat Knob</span>: Rotary dial for adjusting temperature.</li>
+            <li><span class="key-term">Power Indicator Light</span>: On while heating; turns <strong>OFF</strong> when the desired temperature is reached.</li>
+            <li><span class="key-term">Steam Regulator</span>: Slider to set steam quantity (0, 1, ECO, 3, Self-Clean).</li>
+            <li><span class="key-term">Soleplate</span>: The heated, non-stick contact surface.</li>
+            <li><span class="key-term">Anti-Calc Filter</span>: Internal element to minimize scale build-up.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. Quick Start and Preparation -->
+      <section id="setup">
+        <h2 class="section-title flex items-center">
+          <svg class="w-8 h-8 mr-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          2. Quick Start and Preparation
+        </h2>
+
+        <!-- Water Warning (kept + upgraded with tooltip/modal; card taller for controls) -->
+        <section aria-labelledby="water-warning-title" class="warning-callout card p-6 md:p-7 rounded-xl mb-8 border-2 ring-1 ring-secondary/30 text-white">
+          <div class="flex items-start gap-3">
+            <span class="text-3xl" aria-hidden="true">💧</span>
+            <div class="flex-1">
+              <h3 id="water-warning-title" class="font-semibold text-lg tracking-tight">
+                Water Warning:
+                <span class="key-term bg-white/5 px-2 py-0.5 shadow-sm text-secondary">Use Demineralized or Distilled Water Only.</span>
+              </h3>
+              <p class="mt-1 text-sm text-gray-200">
+                <strong class="text-white">Hard water will destroy the appliance.</strong>
+                <span class="font-medium text-red-300">Never</span> use perfumes, vinegar, or chemicals, as these void the warranty.
+              </p>
+              <div class="mt-3 flex items-center gap-3">
+                <button type="button" class="tooltip text-xs px-2 py-1 rounded-md border border-secondary/60 bg-white/10 hover:bg-white/15 focus:bg-white/15"
+                        aria-describedby="tip-why">
+                  Why?
+                  <span id="tip-why" role="tooltip" class="tip">Minerals cause scale buildup, clogging steam vents and overheating.</span>
+                </button>
+                <button type="button" class="text-xs px-2 py-1 rounded-md bg-secondary text-white hover:opacity-90"
+                        data-open="water-modal" aria-haspopup="dialog" aria-controls="water-modal">
+                  Learn more
+                </button>
+              </div>
+              <span class="sr-only" role="alert" aria-live="polite">Use distilled water only. Hard water damages the appliance.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Steps -->
+        <div class="space-y-6">
+          <div class="card p-6 rounded-xl flex flex-col md:flex-row items-start gap-4 hover:shadow-lg">
+            <div class="step-badge" aria-hidden="true">1</div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">Fill and Prepare</h3>
+              <p class="text-gray-700 mt-1">
+                Ensure the iron is <span class="action-step">unplugged</span>. Set the <span class="key-term">Thermostat Knob</span> to <span class="font-bold text-red-600">MIN</span>. Fill the tank with distilled water through the <span class="key-term">Water Filling Opening</span>, making sure not to exceed the <strong>MAX</strong> level indicator.
+              </p>
+            </div>
+          </div>
+          <div class="card p-6 rounded-xl flex flex-col md:flex-row items-start gap-4 hover:shadow-lg">
+            <div class="step-badge" aria-hidden="true">2</div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">Set and Connect</h3>
+              <p class="text-gray-700 mt-1">
+                Select the temperature based on your fabric using the <span class="key-term">Thermostat Knob</span> (see guide below). <span class="action-step">Connect</span> the appliance to the power mains. The <span class="key-term">Power Indicator Light</span> will illuminate.
+              </p>
+            </div>
+          </div>
+          <div class="card p-6 rounded-xl flex flex-col md:flex-row items-start gap-4 hover:shadow-lg">
+            <div class="step-badge" aria-hidden="true">3</div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">Ready Signal</h3>
+              <p class="text-gray-700 mt-1">
+                <span class="action-step">Wait</span> for the iron to heat up. The iron is ready when the <span class="key-term">Power Indicator Light</span> turns <strong>OFF</strong> (typically within 60 seconds). Begin ironing only after the light has extinguished.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Precision Control Settings -->
+      <section id="modes">
+        <h2 class="section-title flex items-center">
+          <svg class="w-8 h-8 mr-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 3m0 0l-3 3m3-3h15M6 18l-3-3m0 0l3-3m-3 3h15"></path></svg>
+          3. Precision Control Settings
+        </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+          <div class="card p-6 rounded-xl flex flex-col items-center">
+            <h3 class="font-extrabold text-xl font-serif text-primary mb-6 border-b border-gray-200 w-full text-center pb-2">Thermostat Knob (Heat)</h3>
+            <div class="control-dial" role="img" aria-label="Thermostat dial with MIN to MAX marking">
+              <div class="dial-markings">
+                <span class="mark-min text-red-500">MIN</span>
+                <span class="mark-1 text-red-500">·</span>
+                <span class="mark-2 text-red-500">··</span>
+                <span class="mark-max text-red-500">MAX</span>
+              </div>
+            </div>
+            <div class="text-sm mt-6 w-full text-left bg-gray-50 p-4 rounded-lg">
+              <p class="font-semibold mb-1 text-primary">Fabric &amp; Temperature Guide:</p>
+              <ul class="space-y-1 text-gray-700">
+                <li><span class="font-mono font-bold text-red-600">·</span> (Low): <span class="key-term bg-white text-gray-800">Synthetic Fibers</span> (Polyester, Nylon)</li>
+                <li><span class="font-mono font-bold text-red-600">··</span> (Medium): <span class="key-term bg-white text-gray-800">Silk, Wool</span> (<span class="font-medium text-secondary">Minimum for Steam Ironing</span>)</li>
+                <li><span class="font-mono font-bold text-red-600">MAX</span> (High): <span class="key-term bg-white text-gray-800">Cotton, Linen</span> (Best for deep creases)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card p-6 rounded-xl flex flex-col items-center">
+            <h3 class="font-extrabold text-xl font-serif text-primary mb-6 border-b border-gray-200 w-full text-center pb-2">Steam Regulator (Flow)</h3>
+            <div class="control-slider" role="slider" aria-valuemin="0" aria-valuemax="4" aria-valuenow="3" aria-label="Steam regulator" tabindex="0" id="steam-slider">
+              <div id="thumb" class="slider-thumb" aria-hidden="true"><span id="thumb-label">3</span></div>
+              <div class="slider-positions">
+                <span data-pos="0" tabindex="0">0</span>
+                <span data-pos="1" tabindex="0">1</span>
+                <span data-pos="2" tabindex="0">ECO</span>
+                <span data-pos="3" tabindex="0">3</span>
+                <span data-pos="4" class="text-xs" tabindex="0">SELF-CLEAN</span>
+              </div>
+            </div>
+            <div class="text-sm mt-6 w-full text-left bg-gray-50 p-4 rounded-lg">
+              <ul class="space-y-1 text-gray-700">
+                <li><span class="font-bold text-red-600">0</span>: <span class="key-term bg-white text-gray-800">Dry Ironing Mode</span> (No steam release)</li>
+                <li><span class="font-bold text-secondary">1 / 3</span>: Steam flow settings. <strong>3</strong> is the Maximum Steam Output.</li>
+                <li><span class="font-bold text-green-600">ECO</span>: Energy-efficient steam setting.</li>
+                <li><span class="font-bold text-purple-600">SELF-CLEAN</span>: <strong>Do not use for ironing.</strong> Only for the cleaning procedure.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-200">
+          <div class="card p-5 rounded-xl bg-secondary/5 hover:bg-secondary/10">
+            <h3 class="text-xl font-bold mb-2 text-primary flex items-center"><span class="mr-2 text-2xl text-secondary" aria-hidden="true">🚀</span>Steam Boost</h3>
+            <p class="text-gray-700">Press the <span class="action-step text-primary">Steam Button</span> <span class="font-extrabold text-lg">twice quickly</span> for a powerful burst.</p>
+          </div>
+          <div class="card p-5 rounded-xl bg-secondary/5 hover:bg-secondary/10">
+            <h3 class="text-xl font-bold mb-2 text-primary flex items-center"><span class="mr-2 text-2xl text-secondary" aria-hidden="true">🔄</span>Continuous Steam</h3>
+            <p class="text-gray-700">Press the <span class="action-step text-primary">Steam Button</span> <span class="font-extrabold text-lg">twice quickly and hold</span> for continuous steam.</p>
+          </div>
+          <div class="card p-5 rounded-xl bg-secondary/5 hover:bg-secondary/10">
+            <h3 class="text-xl font-bold mb-2 text-primary flex items-center"><span class="mr-2 text-2xl text-secondary" aria-hidden="true">🧥</span>Vertical Steaming</h3>
+            <p class="text-gray-700">Set the <span class="key-term">Thermostat Knob</span> to <span class="font-extrabold text-lg">MAX</span> and use vertical strokes.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Self-Cleaning & Maintenance -->
+      <section id="cleaning">
+        <h2 class="section-title flex items-center">
+          <svg class="w-8 h-8 mr-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.63C9.261 21 8 19.957 8 18.571v-3.428m4 4v.286a2 2 0 002 2h0a2 2 0 002-2v-.286"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18M3 18h18"></path></svg>
+          4. Self-Cleaning &amp; Maintenance
+        </h2>
+
+        <div class="card p-6 rounded-xl bg-white border-green-300 border-2 shadow-inner">
+          <h3 class="text-xl font-extrabold mb-3 text-primary font-serif">Self-Cleaning Procedure (Monthly)</h3>
+          <ol class="list-decimal list-inside space-y-3 text-gray-700 font-medium ml-4">
+            <li><span class="action-step">Fill</span> the tank 3/4 full with <strong>distilled water</strong>.</li>
+            <li><span class="action-step">Plug In</span> and set <span class="key-term">Thermostat</span> to <span class="font-bold text-red-600">MAX</span>.</li>
+            <li><span class="action-step">Wait</span> until the light turns OFF, indicating full heat.</li>
+            <li><span class="action-step">Unplug</span> the iron for safety.</li>
+            <li><strong>Crucial Step:</strong> Set the <span class="key-term">Steam Regulator</span> to <span class="font-bold text-purple-700">SELF-CLEAN</span>.</li>
+            <li><span class="action-step">Hold</span> the iron horizontally over a sink. Hot water and steam will flush out mineral deposits.</li>
+            <li>Once the tank is empty, allow the iron to cool completely on its heel before putting it away.</li>
+          </ol>
+        </div>
+
+        <h3 class="text-2xl font-bold text-primary mt-8 mb-4">After Every Use</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="card p-5 rounded-xl bg-gray-50">
+            <p class="text-gray-700"><span class="action-step">Set</span> <span class="key-term">Thermostat</span> to MIN and <span class="action-step">Unplug</span> from the mains.</p>
+          </div>
+          <div class="card p-5 rounded-xl bg-gray-50">
+            <p class="text-gray-700"><span class="action-step">Empty</span> the remaining water from the water tank completely to prevent scale overnight.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Troubleshooting FAQs -->
+      <section id="faq">
+        <h2 class="section-title flex items-center">
+          <span class="mr-4 text-3xl text-secondary" aria-hidden="true">❓</span>
+          5. Troubleshooting FAQs
+        </h2>
+        <div class="space-y-4">
+          <details class="card p-4 rounded-xl transition-all duration-300 hover:border-secondary border border-gray-200">
+            <summary class="font-semibold text-primary text-lg flex items-center gap-2">
+              <svg class="caret w-4 h-4 text-secondary" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M7 5l6 5-6 5V5z"/></svg>
+              Why is my iron leaking water?
+            </summary>
+            <div class="text-gray-700 mt-3 pt-3 border-t border-gray-200">
+              <p><strong>A1 (Check Setting):</strong> Ensure the <span class="key-term">Steam Regulator</span> is not accidentally set to the <span class="action-step text-purple-700">SELF-CLEAN</span> position.</p>
+              <p class="mt-2"><strong>A2 (Check Temperature):</strong> The soleplate is likely not hot enough. Steam requires a minimum of the <span class="font-semibold text-red-600">··</span> setting. If it's too cool, the water will leak as condensation rather than vaporizing.</p>
+            </div>
+          </details>
+          <details class="card p-4 rounded-xl transition-all duration-300 hover:border-secondary border border-gray-200">
+            <summary class="font-semibold text-primary text-lg flex items-center gap-2">
+              <svg class="caret w-4 h-4 text-secondary" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M7 5l6 5-6 5V5z"/></svg>
+              Why is no steam coming out?
+            </summary>
+            <div class="text-gray-700 mt-3 pt-3 border-t border-gray-200">
+              <p><strong>A1 (Heat Level):</strong> Steam is disabled on the MIN or <span class="font-semibold text-red-600">·</span> settings. Set the temperature to <span class="font-semibold text-red-600">··</span> or higher.</p>
+              <p class="mt-2"><strong>A2 (Wait Time):</strong> Did you wait until the <span class="key-term">Power Indicator Light</span> turned <strong>OFF</strong>? If the light is still on, the iron is not ready.</p>
+              <p class="mt-2"><strong>A3 (Regulator Position):</strong> Confirm the <span class="key-term">Steam Regulator</span> is set to <strong>1, ECO, or 3</strong>, not the "0" (Dry Ironing) setting.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 6. Safety -->
+      <section id="safety">
+        <h2 class="section-title flex items-center">
+          <svg class="w-8 h-8 mr-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 3h.01m-6.938 4h13.856c1.54 0 2.457-1.78.89-3.264L12.89 2.136c-1.564-1.484-4.131-1.484-5.695 0L1.182 17.736A2.25 2.25 0 003.078 21h13.856z"></path></svg>
+          6. Critical Safety Precautions
+        </h2>
+        <div class="card p-6 rounded-xl bg-white border-4 border-red-600">
+          <ul class="list-disc list-outside ml-5 space-y-3 text-gray-800 font-medium">
+            <li><strong class="text-red-900 font-extrabold text-lg">Always unplug</strong> the iron before any water filling, emptying, or maintenance.</li>
+            <li><strong class="text-red-900 font-extrabold text-lg">Risk of Burns:</strong> Do not touch the hot soleplate. Always place the iron on a stable, heat-resistant surface when resting.</li>
+            <li>Keep the iron and its power cord <strong class="text-red-900 font-extrabold text-lg">out of reach of children</strong> at all times.</li>
+            <li>Never operate the iron if the cord or appliance casing is damaged.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center p-6 text-sm text-gray-700 bg-gray-100 border-t-4 border-secondary/50">
+      <p class="font-serif font-bold text-primary">Simplus GTJH013 Guidance | All Rights Reserved.</p>
+      <a href="#top" class="text-primary hover:text-secondary mt-1 inline-block text-xs font-medium transition">Return to Top ↑</a>
+    </footer>
+  </div>
+
+  <a href="#top" aria-label="Back to top" class="fab-top" title="Back to top">↑</a>
+
+  <!-- Modal: Water details -->
+  <dialog id="water-modal" class="rounded-xl p-0 w-[min(560px,90vw)]">
+    <form method="dialog" class="m-0">
+      <header class="bg-primary text-white px-5 py-4 rounded-t-xl flex items-center justify-between">
+        <h3 class="font-semibold">Why distilled/demineralized water?</h3>
+        <button aria-label="Close" class="px-2 py-1 rounded bg-white/10 hover:bg-white/20">✕</button>
+      </header>
+      <div class="p-5 space-y-3 text-sm text-primary bg-white">
+        <p><strong>Scale buildup</strong> from hard water blocks steam vents and reduces heating efficiency.</p>
+        <p><strong>Residue &amp; staining</strong> can transfer to garments and mark the soleplate.</p>
+        <p>Using additives (perfume, vinegar, oils) <strong>voids warranty</strong> and damages internal seals.</p>
+      </div>
+      <footer class="px-5 py-4 bg-gray-50 rounded-b-xl flex justify-end">
+        <button class="px-3 py-1.5 rounded bg-secondary text-white hover:opacity-90">Got it</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script>
+    const $ = (s, r=document)=>r.querySelector(s);
+    const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+
+    const modal = $('#water-modal');
+    $("[data-open='water-modal']")?.addEventListener('click', () => { if (!modal.open) modal.showModal(); });
+    modal?.addEventListener('click', (e) => {
+      const rect = modal.getBoundingClientRect();
+      const inside = e.clientX>=rect.left && e.clientX<=rect.right && e.clientY>=rect.top && e.clientY<=rect.bottom;
+      if (!inside) modal.close();
+    });
+    modal?.addEventListener('close', () => $("[data-open='water-modal']")?.focus());
+
+    const thumb = $('#thumb'); const thumbLabel = $('#thumb-label'); const slider = $('#steam-slider');
+    const labels = $$('.slider-positions span', slider);
+    const positions = ['6%','28%','50%','72%','91%'];
+    const valueToText = ['0','1','ECO','3','SELF-CLEAN'];
+
+    function moveThumb(index){
+      if (!thumb) return;
+      const i = Math.max(0, Math.min(4, index));
+      thumb.style.left = positions[i];
+      thumbLabel.textContent = valueToText[i];
+      if (slider){ slider.setAttribute('aria-valuenow', String(i)); slider.setAttribute('aria-valuetext', valueToText[i]); }
+    }
+
+    labels.forEach((el)=> {
+      el.addEventListener('click', ()=> moveThumb(Number(el.dataset.pos)));
+      el.addEventListener('keydown', (e)=>{ if (e.key==='Enter'||e.key===' '){ e.preventDefault(); moveThumb(Number(el.dataset.pos)); }});
+    });
+
+    slider?.addEventListener('keydown', (e)=>{
+      const cur = Number(slider.getAttribute('aria-valuenow') ?? 3);
+      if (['ArrowRight','ArrowUp'].includes(e.key)){ e.preventDefault(); moveThumb(cur+1); }
+      else if (['ArrowLeft','ArrowDown'].includes(e.key)){ e.preventDefault(); moveThumb(cur-1); }
+      else if (e.key==='Home'){ e.preventDefault(); moveThumb(0); }
+      else if (e.key==='End'){ e.preventDefault(); moveThumb(4); }
+    });
+
+    document.addEventListener('DOMContentLoaded', ()=> { moveThumb(3); window.moveThumb = moveThumb; });
+  </script>
+</body>
+</html>
